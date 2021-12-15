@@ -38,7 +38,7 @@ function tbh_init() {
  */
 function tbh_navigation_types() {
 	return [
-		''  => __( 'Display Message', 'tbh' ),
+		''         => __( 'Display Message', 'tbh' ),
 		'navigate' => __( 'Navigation Forcibly', 'tbh' ),
 	];
 }
@@ -61,33 +61,35 @@ function tbh_admin_setting() {
 	add_settings_field( 'tbh-type', __( 'Navigation Type', 'tbh' ), function() {
 		?>
 		<select name="tbh-type">
-			<?php foreach ( tbh_navigation_types() as $value => $label ) {
+			<?php
+			foreach ( tbh_navigation_types() as $value => $label ) {
 				printf(
 					'<option value="%s"%s>%s</option>',
 					esc_attr( $value ),
 					selected( $value, get_option( 'tbh-type', '' ), false ),
 					esc_html( $label )
 				);
-			} ?>
+			}
+			?>
 		</select>
 		<?php
 	}, 'reading', 'tbh_browser_setting' );
 	add_settings_field( 'tbh-message', __( 'Message', 'tbh' ), function() {
 		?>
-		<textarea rows="5" name="tbh-message" class="widefat" style="box-sizing: border-box"><?php echo esc_textarea( get_option( 'tbh-message' ) ) ?></textarea>
+		<textarea rows="5" name="tbh-message" class="widefat" style="box-sizing: border-box"><?php echo esc_textarea( get_option( 'tbh-message' ) ); ?></textarea>
 		<p class="description">
-			<?php esc_html_e( 'Displayed for old browser.', 'tbh' ) ?>
+			<?php esc_html_e( 'Displayed for old browser.', 'tbh' ); ?>
 		</p>
 		<?php
 	}, 'reading', 'tbh_browser_setting' );
 	add_settings_field( 'tbh-url', __( 'URL to Redirect', 'tbh' ), function() {
 		?>
-		<input class="regular-text" type="url" name="tbh-url" value="<?php echo esc_url( get_option( 'tbh-url' ) ) ?>" />
+		<input class="regular-text" type="url" name="tbh-url" value="<?php echo esc_url( get_option( 'tbh-url' ) ); ?>" />
 		<?php
 	}, 'reading', 'tbh_browser_setting' );
 	add_settings_field( 'tbh-label', __( 'Link Label', 'tbh' ), function() {
 		?>
-		<input class="regular-text" type="text" name="tbh-label" value="<?php echo esc_attr( get_option( 'tbh-label' ) ) ?>" placeholder="<?php esc_attr_e( 'See Detail', 'thb' ); ?>" />
+		<input class="regular-text" type="text" name="tbh-label" value="<?php echo esc_attr( get_option( 'tbh-label' ) ); ?>" placeholder="<?php esc_attr_e( 'See Detail', 'thb' ); ?>" />
 		<?php
 	}, 'reading', 'tbh_browser_setting' );
 	// Register Fields.
@@ -116,7 +118,7 @@ function tbh_enqueue_script() {
 	$base = plugin_dir_url( __FILE__ );
 	wp_enqueue_script( 'tbh-happy', $base . 'dist/js/happy.js', [], $info['version'], true );
 	wp_localize_script( 'tbh-happy', 'TbhHappy', [
-		'css' => apply_filters( 'tbh_css_url', $base . 'dist/css/happy.css?ver=' . $info['version'] ),
+		'css'     => apply_filters( 'tbh_css_url', $base . 'dist/css/happy.css?ver=' . $info['version'] ),
 		'message' => wp_kses_post( wpautop( get_option( 'tbh-message' ) ) ),
 		'url'     => get_option( 'tbh-url' ),
 		'type'    => get_option( 'tbh-type' ),
