@@ -25,11 +25,16 @@
 		text-align: right;
 	}
 
-	&-link {
+	&-link,
+	&-close {
 		display: inline-block;
 		padding: 0.25em 1em;
 		border: 1px solid currentColor;
 		border-radius: 3px;
+	}
+
+	&-close + &-link {
+		margin-left: 0.5em;
 	}
 }
 

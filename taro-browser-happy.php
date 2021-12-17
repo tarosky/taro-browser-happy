@@ -82,6 +82,14 @@ function tbh_admin_setting() {
 		</p>
 		<?php
 	}, 'reading', 'tbh_browser_setting' );
+	add_settings_field( 'tbh-header', __( 'Header', 'tbh' ), function() {
+		?>
+		<input name="tbh-header" type="text" class="regular-text" value="<?php echo esc_attr( get_option( 'tbh-header' ) ); ?>" />
+		<p class="description">
+			<?php esc_html_e( 'Optional. If set, header text will be shown.', 'tbh' ); ?>
+		</p>
+		<?php
+	}, 'reading', 'tbh_browser_setting' );
 	add_settings_field( 'tbh-url', __( 'URL to Redirect', 'tbh' ), function() {
 		?>
 		<input class="regular-text" type="url" name="tbh-url" value="<?php echo esc_url( get_option( 'tbh-url' ) ); ?>" />
@@ -95,6 +103,7 @@ function tbh_admin_setting() {
 	// Register Fields.
 	register_setting( 'reading', 'tbh-type' );
 	register_setting( 'reading', 'tbh-message' );
+	register_setting( 'reading', 'tbh-header' );
 	register_setting( 'reading', 'tbh-url' );
 	register_setting( 'reading', 'tbh-label' );
 }
@@ -122,9 +131,10 @@ function tbh_enqueue_script() {
 		'message' => wp_kses_post( wpautop( get_option( 'tbh-message' ) ) ),
 		'url'     => get_option( 'tbh-url' ),
 		'type'    => get_option( 'tbh-type' ),
-		'header'  => apply_filters( 'tbh_header', 'ヘッダーです' ),
+		'header'  => get_option( 'tbh-header' ),
 		'label'   => apply_filters( 'tbh_link_label', get_option( 'tbh-label', esc_html__( 'See Detail', 'thb' ) ) ),
 		'wait'    => tbh_wait_time(),
+		'close'   => __( 'Close', 'tbh' ),
 	] );
 }
 
