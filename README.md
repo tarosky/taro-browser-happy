@@ -18,6 +18,8 @@ This plugin will show notification for old browser, Internet Explorer.
 
 Go to "Setting" > "Reading" and customize the message, URL, and  labels.
 
+To check the look and feel in your modern browsers, add query parameter to the URL `ie=true` e.g. `https://example.com/?ie=true`
+
 ## Installation
 
 ### From Plugin Repository
